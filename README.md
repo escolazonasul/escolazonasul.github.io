@@ -47,6 +47,7 @@ O banco de dados gerencia três perfis de acesso com níveis de permissões espe
 * [ ] **Agenda de Eventos:** Cronograma interativo para festividades e reuniões de pais (ex: Festa Junina, encerramento do ano letivo).
 * [ ] **Galeria Digital:** Espaço visual gerenciado pela administração para exibição das atividades pedagógicas das crianças.
 * [ ] **Sistema de Autenticação:** Login seguro diferenciando os perfis de usuários.
+* [ ] **Sistema de Recebimento:** Usuário (Pais/Responsaveis) cadastrados receberiam e-mail com a atualização das escolas ou da escola que queira receber as informações.
 
 ---
 
