@@ -1,1 +1,270 @@
-<h1>Site da Escola Zona Sul em Construcao</h1>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dashboard estático para gestão de creches comunitárias.">
+  <title>Escola Zona Sul | Gestão para Creches</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true">EZ</span>
+        <div>
+          <strong>Escola Zona Sul</strong>
+          <small>Gestão comunitária</small>
+        </div>
+      </div>
+
+      <nav class="sidebar__nav">
+        <a class="nav-link active" href="#dashboard">
+          <span aria-hidden="true">⌂</span>
+          Dashboard
+        </a>
+        <a class="nav-link" href="#avisos">
+          <span aria-hidden="true">!</span>
+          Avisos
+        </a>
+        <a class="nav-link" href="#eventos">
+          <span aria-hidden="true">◷</span>
+          Agenda
+        </a>
+        <a class="nav-link" href="#galeria">
+          <span aria-hidden="true">▦</span>
+          Galeria
+        </a>
+        <a class="nav-link" href="#cadastros">
+          <span aria-hidden="true">+</span>
+          Cadastros
+        </a>
+      </nav>
+
+    </aside>
+
+    <div class="main-wrap">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="Abrir menu">
+          ☰
+        </button>
+
+        <div>
+          <p class="eyebrow">Sistema de Gestão para Creches Comunitárias</p>
+          <h1>Dashboard da comunidade escolar</h1>
+        </div>
+
+        <button class="button button--primary" id="openRegisterModal" type="button">
+          Novo cadastro
+        </button>
+      </header>
+
+      <main class="content" id="dashboard">
+        <section class="hero-panel" aria-labelledby="hero-title">
+          <div class="hero-panel__content">
+            <p class="eyebrow">Primeira versão estática</p>
+            <h2 id="hero-title">Organize avisos, eventos, escolas e contatos em um só painel.</h2>
+            <p>
+              Esta interface simula o funcionamento inicial do sistema. No futuro, os dados podem vir de uma API em Python com banco de dados na nuvem.
+            </p>
+            <div class="hero-actions">
+              <a class="button button--primary" href="#cadastros">Testar cadastro</a>
+              <a class="button button--ghost" href="#avisos">Ver avisos</a>
+            </div>
+          </div>
+
+          <div class="hero-panel__summary" aria-label="Resumo do sistema">
+            <div>
+              <strong id="schoolCount">0</strong>
+              <span>escolas base</span>
+            </div>
+            <div>
+              <strong id="noticeCount">0</strong>
+              <span>avisos ativos</span>
+            </div>
+            <div>
+              <strong id="eventCount">0</strong>
+              <span>eventos</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="stats-grid" aria-label="Indicadores rápidos">
+          <article class="stat-card">
+            <span class="stat-card__icon stat-card__icon--school" aria-hidden="true">🏫</span>
+            <div>
+              <strong>2</strong>
+              <span>Escolas cadastradas</span>
+            </div>
+          </article>
+          <article class="stat-card">
+            <span class="stat-card__icon stat-card__icon--admin" aria-hidden="true">👤</span>
+            <div>
+              <strong>3</strong>
+              <span>Perfis preparados</span>
+            </div>
+          </article>
+          <article class="stat-card">
+            <span class="stat-card__icon stat-card__icon--notice" aria-hidden="true">🔔</span>
+            <div>
+              <strong>24h</strong>
+              <span>Comunicação rápida</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="section" aria-labelledby="schools-title">
+          <div class="section__header">
+            <div>
+              <p class="eyebrow">Escolas base</p>
+              <h2 id="schools-title">Instituições cadastradas</h2>
+            </div>
+          </div>
+          <div class="school-grid" id="schoolGrid"></div>
+        </section>
+
+        <div class="dashboard-grid">
+          <section class="section" id="avisos" aria-labelledby="notice-title">
+            <div class="section__header">
+              <div>
+                <p class="eyebrow">Comunicação</p>
+                <h2 id="notice-title">Quadro de avisos</h2>
+              </div>
+            </div>
+            <div class="notice-list" id="noticeList"></div>
+          </section>
+
+          <section class="section" id="eventos" aria-labelledby="events-title">
+            <div class="section__header">
+              <div>
+                <p class="eyebrow">Calendário</p>
+                <h2 id="events-title">Agenda de eventos</h2>
+              </div>
+            </div>
+            <div class="event-list" id="eventList"></div>
+          </section>
+        </div>
+
+        <section class="section" id="galeria" aria-labelledby="gallery-title">
+          <div class="section__header">
+            <div>
+              <p class="eyebrow">Atividades</p>
+              <h2 id="gallery-title">Galeria da escola</h2>
+            </div>
+            <button class="button button--ghost" type="button" id="shuffleGallery">Atualizar destaque</button>
+          </div>
+          <div class="gallery-grid" id="galleryGrid"></div>
+        </section>
+
+        <section class="section" id="cadastros" aria-labelledby="register-title">
+          <div class="section__header">
+            <div>
+              <p class="eyebrow">Entrada de dados</p>
+              <h2 id="register-title">Cadastro rápido</h2>
+            </div>
+            <button class="button button--primary" type="button" id="openRegisterModalSecondary">Abrir formulário</button>
+          </div>
+
+          <div class="register-panel">
+            <form class="quick-form" id="quickRegisterForm">
+              <label>
+                Tipo de perfil
+                <select id="profileType" name="profileType" required>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Professor">Professor</option>
+                  <option value="Usuário (Pai/Mãe)">Usuário (Pai/Mãe)</option>
+                  <option value="Escola">Escola</option>
+                </select>
+              </label>
+
+              <label>
+                Nome
+                <input id="name" name="name" type="text" placeholder="Digite o nome" required>
+              </label>
+
+              <label>
+                E-mail
+                <input id="email" name="email" type="email" placeholder="nome@email.com" required>
+              </label>
+
+              <label>
+                Celular
+                <input id="phone" name="phone" type="tel" placeholder="(00) 00000-0000">
+              </label>
+
+              <button class="button button--primary" type="submit">Salvar cadastro</button>
+            </form>
+
+            <aside class="profile-preview" aria-labelledby="profiles-title">
+              <h3 id="profiles-title">Perfis do sistema</h3>
+              <div class="profile-list" id="profileList"></div>
+            </aside>
+          </div>
+
+          <div class="table-wrap" aria-live="polite">
+            <table>
+              <caption>Cadastros simulados no navegador</caption>
+              <thead>
+                <tr>
+                  <th>Perfil</th>
+                  <th>Nome</th>
+                  <th>E-mail</th>
+                  <th>Celular</th>
+                </tr>
+              </thead>
+              <tbody id="registrationsTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal" id="registerModal" aria-hidden="true">
+    <div class="modal__overlay" data-close-modal></div>
+    <section class="modal__content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal__header">
+        <div>
+          <p class="eyebrow">Cadastro rápido</p>
+          <h2 id="modal-title">Adicionar novo contato</h2>
+        </div>
+        <button class="icon-button" type="button" aria-label="Fechar modal" data-close-modal>×</button>
+      </div>
+
+      <form class="quick-form" id="modalRegisterForm">
+        <label>
+          Tipo de perfil
+          <select name="profileType" required>
+            <option value="Administrador">Administrador</option>
+            <option value="Professor">Professor</option>
+            <option value="Usuário (Pai/Mãe)">Usuário (Pai/Mãe)</option>
+            <option value="Escola">Escola</option>
+          </select>
+        </label>
+
+        <label>
+          Nome
+          <input name="name" type="text" placeholder="Digite o nome" required>
+        </label>
+
+        <label>
+          E-mail
+          <input name="email" type="email" placeholder="nome@email.com" required>
+        </label>
+
+        <label>
+          Celular
+          <input name="phone" type="tel" placeholder="(00) 00000-0000">
+        </label>
+
+        <button class="button button--primary" type="submit">Salvar e fechar</button>
+      </form>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
