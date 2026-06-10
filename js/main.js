@@ -133,6 +133,7 @@ const modalRegisterForm = document.querySelector("#modalRegisterForm");
 const registerModal = document.querySelector("#registerModal");
 const toast = document.querySelector("#toast");
 const sidebar = document.querySelector("#sidebar");
+const registerSection = document.querySelector("#cadastros");
 
 function getStoredRegistrations() {
   const saved = localStorage.getItem(storageKey);
@@ -304,6 +305,18 @@ function closeModal() {
   registerModal.setAttribute("aria-hidden", "true");
 }
 
+function showRegisterSection() {
+  registerSection.hidden = false;
+
+  window.requestAnimationFrame(() => {
+    registerSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
+function hideRegisterSection() {
+  registerSection.hidden = true;
+}
+
 function shuffleGallery() {
   const shuffled = [...galleryItems].sort(() => Math.random() - 0.5);
   renderGallery(shuffled);
@@ -323,10 +336,27 @@ function bindEvents() {
   });
 
   document.querySelectorAll(".nav-link").forEach((link) => {
-    link.addEventListener("click", () => {
+    link.addEventListener("click", (event) => {
       document.querySelectorAll(".nav-link").forEach((item) => item.classList.remove("active"));
       link.classList.add("active");
       sidebar.classList.remove("is-open");
+
+      if (link.getAttribute("href") === "#cadastros") {
+        event.preventDefault();
+        showRegisterSection();
+        history.replaceState(null, "", "#cadastros");
+        return;
+      }
+
+      hideRegisterSection();
+    });
+  });
+
+  document.querySelectorAll('a[href="#cadastros"]:not(.nav-link)').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      showRegisterSection();
+      history.replaceState(null, "", "#cadastros");
     });
   });
 
@@ -350,6 +380,10 @@ function init() {
   renderRegistrations();
   updateCounters();
   bindEvents();
+
+  if (window.location.hash === "#cadastros") {
+    showRegisterSection();
+  }
 }
 
 init();
