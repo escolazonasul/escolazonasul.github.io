@@ -1,0 +1,43 @@
+(function () {
+  const app = window.EscolaZonaSul = window.EscolaZonaSul || {};
+  const select = (selector) => document.querySelector(selector);
+  const selectAll = (selector) => document.querySelectorAll(selector);
+
+  app.dom = {
+    schoolGrid: select("#schoolGrid"),
+    noticeList: select("#noticeList"),
+    eventList: select("#eventList"),
+    galleryGrid: select("#galleryGrid"),
+    profileList: select("#profileList"),
+    registrationsTable: select("#registrationsTable"),
+    quickRegisterForm: select("#quickRegisterForm"),
+    modalRegisterForm: select("#modalRegisterForm"),
+    loginForm: select("#loginForm"),
+    validationForm: select("#validationForm"),
+    noticeForm: select("#noticeForm"),
+    eventForm: select("#eventForm"),
+    galleryForm: select("#galleryForm"),
+    authModal: select("#authModal"),
+    authModalTitle: select("#authModalTitle"),
+    authModalEyebrow: select("#authModalEyebrow"),
+    authTabs: selectAll("[data-auth-tab]"),
+    authPanels: selectAll("[data-auth-panel]"),
+    closeModalElements: selectAll("[data-close-modal]"),
+    navLinks: selectAll(".nav-link"),
+    registerLinks: selectAll('a[href="#cadastros"]:not(.nav-link)'),
+    openAuthModalButton: select("#openAuthModal"),
+    openAuthModalSecondaryButton: select("#openAuthModalSecondary"),
+    logoutButton: select("#logoutButton"),
+    authStatus: select("#authStatus"),
+    adminOnlyElements: selectAll("[data-admin-only]"),
+    resendValidationCodeButton: select("#resendValidationCode"),
+    shuffleGalleryButton: select("#shuffleGallery"),
+    menuButton: select("#menuButton"),
+    toast: select("#toast"),
+    sidebar: select("#sidebar"),
+    registerSection: select("#cadastros"),
+    schoolCount: select("#schoolCount"),
+    noticeCount: select("#noticeCount"),
+    eventCount: select("#eventCount")
+  };
+}());

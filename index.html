@@ -36,7 +36,7 @@
           <span aria-hidden="true">▦</span>
           Galeria
         </a>
-        <a class="nav-link" href="#cadastros">
+        <a class="nav-link" href="#cadastros" data-admin-only>
           <span aria-hidden="true">+</span>
           Cadastros
         </a>
@@ -55,9 +55,15 @@
           <h1>Dashboard da comunidade escolar</h1>
         </div>
 
-        <button class="button button--primary" id="openRegisterModal" type="button">
-          Novo cadastro
-        </button>
+        <div class="topbar__actions">
+          <span class="auth-status" id="authStatus" hidden></span>
+          <button class="button button--primary" id="openAuthModal" type="button">
+            Login
+          </button>
+          <button class="button button--ghost" id="logoutButton" type="button" hidden>
+            Sair
+          </button>
+        </div>
       </header>
 
       <main class="content" id="dashboard">
@@ -69,7 +75,7 @@
               Esse dashboard permite a centralização de avisos urgentes , a visualização de uma agenda de eventos institucionais e o compartilhamento de registros por meio de uma galeria digital de atividades.
             </p>
             <div class="hero-actions">
-              <a class="button button--primary" href="#cadastros">Fazer Cadastro</a>
+              <a class="button button--primary" href="#cadastros" data-admin-only>Fazer Cadastro</a>
               <a class="button button--ghost" href="#avisos">Ver Avisos</a>
             </div>
           </div>
@@ -163,7 +169,7 @@
               <p class="eyebrow">Entrada de dados</p>
               <h2 id="register-title">Cadastro rápido</h2>
             </div>
-            <button class="button button--primary" type="button" id="openRegisterModalSecondary">Abrir formulário</button>
+            <button class="button button--primary" type="button" id="openAuthModalSecondary">Abrir formulário</button>
           </div>
 
           <div class="register-panel">
@@ -173,8 +179,7 @@
                 <select id="profileType" name="profileType" required>
                   <option value="Administrador">Administrador</option>
                   <option value="Professor">Professor</option>
-                  <option value="Usuário (Pai/Mãe)">Usuário (Pai/Mãe)</option>
-                  <option value="Escola">Escola</option>
+                  <option value="Usuário">Usuário</option>
                 </select>
               </label>
 
@@ -193,6 +198,16 @@
                 <input id="phone" name="phone" type="tel" placeholder="(00) 00000-0000">
               </label>
 
+              <label>
+                Senha
+                <input id="quickPassword" name="senha" type="password" placeholder="Mínimo de 6 caracteres" autocomplete="new-password" minlength="6" required>
+              </label>
+
+              <label>
+                Confirmar senha
+                <input id="quickPasswordConfirm" name="confirmSenha" type="password" placeholder="Repita a senha" autocomplete="new-password" minlength="6" required>
+              </label>
+
               <button class="button button--primary" type="submit">Salvar cadastro</button>
             </form>
 
@@ -202,9 +217,106 @@
             </aside>
           </div>
 
+          <div class="admin-forms" aria-label="Formulários administrativos">
+            <section class="admin-form-card" aria-labelledby="notice-form-title">
+              <h3 id="notice-form-title">Novo aviso</h3>
+              <form class="quick-form" id="noticeForm">
+                <label>
+                  Título
+                  <input name="titulo" type="text" placeholder="Hoje não haverá aula" required>
+                </label>
+
+                <label>
+                  Mensagem
+                  <textarea name="mensagem" rows="3" placeholder="Mensagem do aviso" required></textarea>
+                </label>
+
+                <label>
+                  Prioridade
+                  <select name="prioridade" required>
+                    <option value="info">Info</option>
+                    <option value="alerta">Alerta</option>
+                    <option value="urgente">Urgente</option>
+                  </select>
+                </label>
+
+                <label>
+                  Escola
+                  <input name="escola" type="text" value="CEMEI Morumbi" required>
+                </label>
+
+                <label class="checkbox-field">
+                  <input name="ativo" type="checkbox" checked>
+                  Aviso ativo
+                </label>
+
+                <button class="button button--primary" type="submit">Salvar aviso</button>
+              </form>
+            </section>
+
+            <section class="admin-form-card" aria-labelledby="event-form-title">
+              <h3 id="event-form-title">Novo evento</h3>
+              <form class="quick-form" id="eventForm">
+                <label>
+                  Título
+                  <input name="titulo" type="text" placeholder="Festa Junina" required>
+                </label>
+
+                <label>
+                  Descrição
+                  <textarea name="descricao" rows="3" placeholder="Descrição do evento" required></textarea>
+                </label>
+
+                <label>
+                  Data
+                  <input name="data_evento" type="date" required>
+                </label>
+
+                <label>
+                  Local
+                  <input name="local" type="text" placeholder="Pátio da escola" required>
+                </label>
+
+                <label>
+                  Escola
+                  <input name="escola" type="text" value="CEMEI Morumbi" required>
+                </label>
+
+                <button class="button button--primary" type="submit">Salvar evento</button>
+              </form>
+            </section>
+
+            <section class="admin-form-card" aria-labelledby="gallery-form-title">
+              <h3 id="gallery-form-title">Novo item de galeria</h3>
+              <form class="quick-form" id="galleryForm">
+                <label>
+                  Título
+                  <input name="titulo" type="text" placeholder="Atividade de pintura" required>
+                </label>
+
+                <label>
+                  Descrição
+                  <textarea name="descricao" rows="3" placeholder="Descrição da atividade" required></textarea>
+                </label>
+
+                <label>
+                  URL da imagem
+                  <input name="imagem_url" type="url" placeholder="https://..." required>
+                </label>
+
+                <label>
+                  Escola
+                  <input name="escola" type="text" value="CEMEI Morumbi" required>
+                </label>
+
+                <button class="button button--primary" type="submit">Salvar imagem</button>
+              </form>
+            </section>
+          </div>
+
           <div class="table-wrap" aria-live="polite">
             <table>
-              <caption>Cadastros simulados no navegador</caption>
+              <caption>Cadastros vindos da API</caption>
               <thead>
                 <tr>
                   <th>Perfil</th>
@@ -221,50 +333,106 @@
     </div>
   </div>
 
-  <div class="modal" id="registerModal" aria-hidden="true">
+  <div class="modal" id="authModal" aria-hidden="true">
     <div class="modal__overlay" data-close-modal></div>
-    <section class="modal__content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <section class="modal__content modal__content--auth" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
       <div class="modal__header">
         <div>
-          <p class="eyebrow">Cadastro rápido</p>
-          <h2 id="modal-title">Adicionar novo contato</h2>
+          <p class="eyebrow" id="authModalEyebrow">Autenticação</p>
+          <h2 id="authModalTitle">Acesse sua conta</h2>
         </div>
         <button class="icon-button" type="button" aria-label="Fechar modal" data-close-modal>×</button>
       </div>
 
-      <form class="quick-form" id="modalRegisterForm">
+      <div class="auth-tabs" role="tablist" aria-label="Autenticação">
+        <button class="auth-tab is-active" id="loginTab" type="button" role="tab" aria-selected="true" data-auth-tab="login">Login</button>
+        <button class="auth-tab" id="registerTab" type="button" role="tab" aria-selected="false" data-auth-tab="register">Novo Cadastro</button>
+      </div>
+
+      <form class="quick-form auth-panel" id="loginForm" data-auth-panel="login">
+        <label>
+          E-mail
+          <input name="email" type="email" placeholder="nome@email.com" autocomplete="email" required>
+        </label>
+
+        <label>
+          Senha
+          <input name="senha" type="password" placeholder="Digite sua senha" autocomplete="current-password" minlength="6" required>
+        </label>
+
+        <button class="button button--primary" type="submit">Entrar</button>
+      </form>
+
+      <form class="quick-form auth-panel" id="modalRegisterForm" data-auth-panel="register" hidden>
         <label>
           Tipo de perfil
-          <select name="profileType" required>
-            <option value="Administrador">Administrador</option>
-            <option value="Professor">Professor</option>
-            <option value="Usuário (Pai/Mãe)">Usuário (Pai/Mãe)</option>
-            <option value="Escola">Escola</option>
+          <select disabled aria-label="Tipo de perfil">
+            <option value="Usuário" selected>Usuário</option>
           </select>
+          <input name="profileType" type="hidden" value="Usuário">
         </label>
 
         <label>
           Nome
-          <input name="name" type="text" placeholder="Digite o nome" required>
+          <input name="name" type="text" placeholder="Digite o nome" autocomplete="name" required>
         </label>
 
         <label>
           E-mail
-          <input name="email" type="email" placeholder="nome@email.com" required>
+          <input name="email" type="email" placeholder="nome@email.com" autocomplete="email" required>
         </label>
 
         <label>
           Celular
-          <input name="phone" type="tel" placeholder="(00) 00000-0000">
+          <input name="phone" type="tel" placeholder="(00) 00000-0000" autocomplete="tel">
         </label>
 
-        <button class="button button--primary" type="submit">Salvar e fechar</button>
+        <label>
+          Senha
+          <input name="senha" type="password" placeholder="Mínimo de 6 caracteres" autocomplete="new-password" minlength="6" required>
+        </label>
+
+        <label>
+          Confirmar senha
+          <input name="confirmSenha" type="password" placeholder="Repita a senha" autocomplete="new-password" minlength="6" required>
+        </label>
+
+        <button class="button button--primary" type="submit">Cadastrar</button>
+      </form>
+
+      <form class="quick-form auth-panel" id="validationForm" data-auth-panel="validation" hidden>
+        <label>
+          E-mail
+          <input name="email" type="email" readonly required>
+        </label>
+
+        <label>
+          Código de validação
+          <input name="codigo" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="000000" required>
+        </label>
+
+        <div class="auth-actions">
+          <button class="button button--primary" type="submit">Validar cadastro</button>
+          <button class="button button--link" id="resendValidationCode" type="button">Reenviar código</button>
+        </div>
       </form>
     </section>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/dom.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/forms.js"></script>
+  <script src="js/events.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
