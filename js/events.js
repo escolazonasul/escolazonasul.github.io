@@ -2,7 +2,70 @@
   const app = window.EscolaZonaSul = window.EscolaZonaSul || {};
   const { auth, dom, forms, ui } = app;
 
+  function getPasswordToggleIcon(isVisible) {
+    if (isVisible) {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M2 2l20 20"></path>
+          <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"></path>
+          <path d="M8.5 5.5A9.8 9.8 0 0 1 12 4c5 0 8.5 4.5 9.5 8a12 12 0 0 1-2.1 3.5"></path>
+          <path d="M14.1 14.1A3 3 0 0 1 8.9 8.9"></path>
+          <path d="M5.7 5.7A12 12 0 0 0 2.5 12c1 3.5 4.5 8 9.5 8a9.9 9.9 0 0 0 5.2-1.6"></path>
+        </svg>
+      `;
+    }
+
+    return `
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M2.5 12c1-3.5 4.5-8 9.5-8s8.5 4.5 9.5 8c-1 3.5-4.5 8-9.5 8s-8.5-4.5-9.5-8z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+    `;
+  }
+
+  function setPasswordFieldVisibility(input, toggleButton, isVisible) {
+    input.type = isVisible ? "text" : "password";
+    toggleButton.setAttribute("aria-label", isVisible ? "Ocultar senha" : "Mostrar senha");
+    toggleButton.setAttribute("aria-pressed", String(isVisible));
+    toggleButton.title = isVisible ? "Ocultar senha" : "Mostrar senha";
+    toggleButton.classList.toggle("is-active", isVisible);
+    toggleButton.innerHTML = getPasswordToggleIcon(isVisible);
+  }
+
+  function enhancePasswordFields() {
+    document.querySelectorAll('input[type="password"]').forEach((input) => {
+      if (input.closest(".password-field")) {
+        return;
+      }
+
+      const wrapper = document.createElement("span");
+      const toggleButton = document.createElement("button");
+
+      wrapper.className = "password-field";
+      input.classList.add("password-field__input");
+      input.parentNode.insertBefore(wrapper, input);
+      wrapper.appendChild(input);
+
+      toggleButton.className = "password-field__toggle";
+      toggleButton.type = "button";
+      setPasswordFieldVisibility(input, toggleButton, false);
+
+      toggleButton.addEventListener("click", () => {
+        setPasswordFieldVisibility(input, toggleButton, input.type !== "text");
+        input.focus();
+      });
+
+      input.form?.addEventListener("reset", () => {
+        window.setTimeout(() => setPasswordFieldVisibility(input, toggleButton, false), 0);
+      });
+
+      wrapper.appendChild(toggleButton);
+    });
+  }
+
   function bindEvents() {
+    enhancePasswordFields();
+
     dom.openAuthModalButton.addEventListener("click", () => auth.openAuthModal("login"));
     dom.logoutButton.addEventListener("click", forms.handleLogout);
     dom.openAuthModalSecondaryButton.addEventListener("click", () => {
