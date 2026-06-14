@@ -18,6 +18,10 @@
       tab.addEventListener("click", () => auth.switchAuthTab(tab.dataset.authTab));
     });
 
+    dom.forgotPasswordLink.addEventListener("click", () => auth.showForgotPasswordStep());
+    dom.backToLoginFromForgotButton.addEventListener("click", () => auth.switchAuthTab("login"));
+    dom.requestNewResetCodeButton.addEventListener("click", forms.handleRequestNewResetCode);
+
     dom.closeModalElements.forEach((element) => {
       element.addEventListener("click", auth.closeModal);
     });
@@ -54,6 +58,8 @@
     });
 
     dom.loginForm.addEventListener("submit", forms.handleLoginSubmit);
+    dom.forgotPasswordForm.addEventListener("submit", forms.handleForgotPasswordSubmit);
+    dom.resetPasswordForm.addEventListener("submit", forms.handleResetPasswordSubmit);
     dom.validationForm.addEventListener("submit", forms.handleValidationSubmit);
     dom.resendValidationCodeButton.addEventListener("click", forms.handleResendValidationCode);
     dom.quickRegisterForm.addEventListener("submit", forms.handleRegistrationSubmit);

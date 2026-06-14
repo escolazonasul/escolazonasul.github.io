@@ -242,6 +242,31 @@ img {
   transform: translateY(-1px);
 }
 
+.button:disabled {
+  cursor: wait;
+  opacity: 0.78;
+  transform: none;
+}
+
+.button.is-loading {
+  pointer-events: none;
+}
+
+.button__spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.48);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: spin 0.8s linear infinite;
+}
+
+.button--link .button__spinner {
+  border-color: rgba(15, 110, 115, 0.26);
+  border-top-color: var(--primary-dark);
+}
+
 .button--primary {
   background: var(--primary);
   color: #ffffff;
@@ -813,9 +838,21 @@ tbody tr:last-child td {
   margin-top: 0;
 }
 
+.auth-forgot-link {
+  justify-self: center;
+  min-height: 36px;
+  padding-inline: 8px;
+}
+
 .auth-actions {
   display: grid;
   gap: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .toast {

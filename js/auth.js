@@ -110,6 +110,15 @@
     dom.validationForm.elements.codigo.value = "";
   }
 
+  function setPasswordResetEmail(email) {
+    const normalizedEmail = email || "";
+
+    dom.forgotPasswordForm.elements.email.value = normalizedEmail;
+    dom.resetPasswordForm.elements.email.value = normalizedEmail;
+    dom.resetPasswordForm.elements.codigo.value = "";
+    dom.resetPasswordForm.elements.nova_senha.value = "";
+  }
+
   function switchAuthTab(tabName) {
     const modalCopy = {
       login: {
@@ -123,15 +132,29 @@
       validation: {
         eyebrow: "Validação",
         title: "Validar cadastro"
+      },
+      "forgot-password": {
+        eyebrow: "Recuperação",
+        title: "Esqueci minha senha"
+      },
+      "reset-password": {
+        eyebrow: "Redefinição",
+        title: "Criar nova senha"
       }
     };
+
+    const relatedTabName = {
+      validation: "register",
+      "forgot-password": "login",
+      "reset-password": "login"
+    }[tabName] || tabName;
 
     dom.authPanels.forEach((panel) => {
       panel.hidden = panel.dataset.authPanel !== tabName;
     });
 
     dom.authTabs.forEach((tab) => {
-      const isActive = tab.dataset.authTab === tabName || (tabName === "validation" && tab.dataset.authTab === "register");
+      const isActive = tab.dataset.authTab === relatedTabName;
       tab.classList.toggle("is-active", isActive);
       tab.setAttribute("aria-selected", String(isActive));
     });
@@ -162,6 +185,18 @@
     openAuthModal("validation");
   }
 
+  function showForgotPasswordStep(email = "") {
+    const fallbackEmail = dom.loginForm.elements.email.value.trim();
+
+    setPasswordResetEmail(email || fallbackEmail);
+    openAuthModal("forgot-password");
+  }
+
+  function showPasswordResetStep(email) {
+    setPasswordResetEmail(email);
+    openAuthModal("reset-password");
+  }
+
   function handleUnauthorizedSession() {
     clearAuthSession();
     app.render.renderProtectedUnavailable("Sua sessão expirou. Faça login novamente.");
@@ -181,6 +216,9 @@
     openAuthModal,
     saveAuthSession,
     setLoginEmail,
+    setPasswordResetEmail,
+    showForgotPasswordStep,
+    showPasswordResetStep,
     showValidationStep,
     switchAuthTab,
     updateAuthUi

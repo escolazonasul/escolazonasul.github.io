@@ -361,6 +361,41 @@
         </label>
 
         <button class="button button--primary" type="submit">Entrar</button>
+        <button class="button button--link auth-forgot-link" id="forgotPasswordLink" type="button">Esqueci minha senha</button>
+      </form>
+
+      <form class="quick-form auth-panel" id="forgotPasswordForm" data-auth-panel="forgot-password" hidden>
+        <label>
+          E-mail
+          <input name="email" type="email" placeholder="nome@email.com" autocomplete="email" required>
+        </label>
+
+        <div class="auth-actions">
+          <button class="button button--primary" type="submit">Enviar código</button>
+          <button class="button button--link" id="backToLoginFromForgot" type="button">Voltar para login</button>
+        </div>
+      </form>
+
+      <form class="quick-form auth-panel" id="resetPasswordForm" data-auth-panel="reset-password" hidden>
+        <label>
+          E-mail
+          <input name="email" type="email" readonly required>
+        </label>
+
+        <label>
+          Código de redefinição
+          <input name="codigo" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="000000" required>
+        </label>
+
+        <label>
+          Nova senha
+          <input name="nova_senha" type="password" placeholder="Mínimo de 6 caracteres" autocomplete="new-password" minlength="6" required>
+        </label>
+
+        <div class="auth-actions">
+          <button class="button button--primary" type="submit">Alterar senha</button>
+          <button class="button button--link" id="requestNewResetCode" type="button">Solicitar novo código</button>
+        </div>
       </form>
 
       <form class="quick-form auth-panel" id="modalRegisterForm" data-auth-panel="register" hidden>
