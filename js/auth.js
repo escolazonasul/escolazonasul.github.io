@@ -57,6 +57,10 @@
       element.hidden = !isAdmin;
     });
 
+    dom.adminContentElements.forEach((element) => {
+      element.hidden = !isAdmin;
+    });
+
     if (!isAdmin) {
       app.ui?.hideRegisterSection?.();
     }

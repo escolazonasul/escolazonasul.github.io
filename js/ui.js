@@ -12,7 +12,15 @@
   }
 
   function hideRegisterSection() {
+    if (!dom.registerSection) {
+      return;
+    }
+
     dom.registerSection.hidden = true;
+  }
+
+  function openRegistrationsPage() {
+    window.location.href = "cadastro.html";
   }
 
   function showRegisterSection() {
@@ -25,6 +33,11 @@
     if (!app.auth.isCurrentUserAdmin()) {
       hideRegisterSection();
       showToast("Apenas administradores podem acessar os cadastros.");
+      return;
+    }
+
+    if (!dom.registerSection) {
+      openRegistrationsPage();
       return;
     }
 
@@ -49,6 +62,7 @@
 
   app.ui = {
     hideRegisterSection,
+    openRegistrationsPage,
     showRegisterSection,
     showToast,
     shuffleGallery

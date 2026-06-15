@@ -4,6 +4,7 @@
   const selectAll = (selector) => document.querySelectorAll(selector);
 
   app.dom = {
+    page: document.body.dataset.page || "dashboard",
     schoolGrid: select("#schoolGrid"),
     noticeList: select("#noticeList"),
     eventList: select("#eventList"),
@@ -25,13 +26,14 @@
     authTabs: selectAll("[data-auth-tab]"),
     authPanels: selectAll("[data-auth-panel]"),
     closeModalElements: selectAll("[data-close-modal]"),
-    navLinks: selectAll(".nav-link"),
-    registerLinks: selectAll('a[href="#cadastros"]:not(.nav-link)'),
+    navLinks: selectAll("a.nav-link"),
     openAuthModalButton: select("#openAuthModal"),
     openAuthModalSecondaryButton: select("#openAuthModalSecondary"),
     logoutButton: select("#logoutButton"),
     authStatus: select("#authStatus"),
     adminOnlyElements: selectAll("[data-admin-only]"),
+    adminContentElements: selectAll("[data-admin-content]"),
+    adminAccessMessage: select("#adminAccessMessage"),
     forgotPasswordLink: select("#forgotPasswordLink"),
     backToLoginFromForgotButton: select("#backToLoginFromForgot"),
     requestNewResetCodeButton: select("#requestNewResetCode"),

@@ -150,6 +150,26 @@
       auth.saveAuthSession(loginPayload);
       form.reset();
       auth.closeModal();
+
+      if (["cadastro", "enventos", "painel"].includes(dom.page)) {
+        if (!auth.isCurrentUserAdmin()) {
+          render.renderAdminAccessMessage("Acesso restrito", "Apenas administradores podem acessar esta área.");
+          render.renderTableState("Acesso restrito", "Apenas administradores podem acessar esta área.");
+          ui.showToast("Apenas administradores podem acessar esta área.");
+          return;
+        }
+
+        render.clearAdminAccessMessage();
+
+        if (dom.page === "painel") {
+          render.renderTableState("Carregando usuários", "Buscando dados na API.");
+          await services.loadUsers();
+        }
+
+        ui.showToast("Login realizado com sucesso.");
+        return;
+      }
+
       await services.loadProtectedData();
       ui.showToast("Login realizado com sucesso.");
     } catch (error) {

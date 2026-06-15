@@ -2,6 +2,10 @@
   const app = window.EscolaZonaSul = window.EscolaZonaSul || {};
   const { auth, dom, forms, ui } = app;
 
+  function on(element, eventName, handler) {
+    element?.addEventListener(eventName, handler);
+  }
+
   function getPasswordToggleIcon(isVisible) {
     if (isVisible) {
       return `
@@ -66,14 +70,14 @@
   function bindEvents() {
     enhancePasswordFields();
 
-    dom.openAuthModalButton.addEventListener("click", () => auth.openAuthModal("login"));
-    dom.logoutButton.addEventListener("click", forms.handleLogout);
-    dom.openAuthModalSecondaryButton.addEventListener("click", () => {
+    on(dom.openAuthModalButton, "click", () => auth.openAuthModal("login"));
+    on(dom.logoutButton, "click", forms.handleLogout);
+    on(dom.openAuthModalSecondaryButton, "click", () => {
       dom.quickRegisterForm.scrollIntoView({ behavior: "smooth", block: "center" });
       dom.quickRegisterForm.querySelector("input[name='name']")?.focus();
     });
-    dom.shuffleGalleryButton.addEventListener("click", ui.shuffleGallery);
-    dom.menuButton.addEventListener("click", () => {
+    on(dom.shuffleGalleryButton, "click", ui.shuffleGallery);
+    on(dom.menuButton, "click", () => {
       dom.sidebar.classList.toggle("is-open");
     });
 
@@ -81,9 +85,9 @@
       tab.addEventListener("click", () => auth.switchAuthTab(tab.dataset.authTab));
     });
 
-    dom.forgotPasswordLink.addEventListener("click", () => auth.showForgotPasswordStep());
-    dom.backToLoginFromForgotButton.addEventListener("click", () => auth.switchAuthTab("login"));
-    dom.requestNewResetCodeButton.addEventListener("click", forms.handleRequestNewResetCode);
+    on(dom.forgotPasswordLink, "click", () => auth.showForgotPasswordStep());
+    on(dom.backToLoginFromForgotButton, "click", () => auth.switchAuthTab("login"));
+    on(dom.requestNewResetCodeButton, "click", forms.handleRequestNewResetCode);
 
     dom.closeModalElements.forEach((element) => {
       element.addEventListener("click", auth.closeModal);
@@ -95,41 +99,20 @@
         link.classList.add("active");
         dom.sidebar.classList.remove("is-open");
 
-        if (link.getAttribute("href") === "#cadastros") {
-          event.preventDefault();
-          ui.showRegisterSection();
-          history.replaceState(null, "", "#cadastros");
-          return;
-        }
-
         ui.hideRegisterSection();
       });
     });
 
-    dom.registerLinks.forEach((link) => {
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-
-        if (!auth.isAuthenticated()) {
-          auth.openAuthModal("register");
-          return;
-        }
-
-        ui.showRegisterSection();
-        history.replaceState(null, "", "#cadastros");
-      });
-    });
-
-    dom.loginForm.addEventListener("submit", forms.handleLoginSubmit);
-    dom.forgotPasswordForm.addEventListener("submit", forms.handleForgotPasswordSubmit);
-    dom.resetPasswordForm.addEventListener("submit", forms.handleResetPasswordSubmit);
-    dom.validationForm.addEventListener("submit", forms.handleValidationSubmit);
-    dom.resendValidationCodeButton.addEventListener("click", forms.handleResendValidationCode);
-    dom.quickRegisterForm.addEventListener("submit", forms.handleRegistrationSubmit);
-    dom.modalRegisterForm.addEventListener("submit", forms.handleRegistrationSubmit);
-    dom.noticeForm.addEventListener("submit", forms.handleNoticeSubmit);
-    dom.eventForm.addEventListener("submit", forms.handleEventSubmit);
-    dom.galleryForm.addEventListener("submit", forms.handleGallerySubmit);
+    on(dom.loginForm, "submit", forms.handleLoginSubmit);
+    on(dom.forgotPasswordForm, "submit", forms.handleForgotPasswordSubmit);
+    on(dom.resetPasswordForm, "submit", forms.handleResetPasswordSubmit);
+    on(dom.validationForm, "submit", forms.handleValidationSubmit);
+    on(dom.resendValidationCodeButton, "click", forms.handleResendValidationCode);
+    on(dom.quickRegisterForm, "submit", forms.handleRegistrationSubmit);
+    on(dom.modalRegisterForm, "submit", forms.handleRegistrationSubmit);
+    on(dom.noticeForm, "submit", forms.handleNoticeSubmit);
+    on(dom.eventForm, "submit", forms.handleEventSubmit);
+    on(dom.galleryForm, "submit", forms.handleGallerySubmit);
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {

@@ -69,13 +69,19 @@
         }
       }
     ];
-    const results = await Promise.allSettled(tasks.map((task) => task.run()));
+    const visibleTasks = tasks.filter((task) => (
+      (task.run === loadNotices && app.dom.noticeList) ||
+      (task.run === loadEvents && app.dom.eventList) ||
+      (task.run === loadGallery && app.dom.galleryGrid) ||
+      (task.run === loadUsers && app.dom.registrationsTable)
+    ));
+    const results = await Promise.allSettled(visibleTasks.map((task) => task.run()));
     const failures = [];
 
     results.forEach((result, index) => {
       if (result.status === "rejected") {
-        tasks[index].onError(result.reason);
-        failures.push(tasks[index].name);
+        visibleTasks[index].onError(result.reason);
+        failures.push(visibleTasks[index].name);
       }
     });
 

@@ -1,0 +1,71 @@
+:root {
+  --bg: #f4f8fb;
+  --surface: #ffffff;
+  --surface-soft: #eef7f6;
+  --text: #18323a;
+  --muted: #667985;
+  --line: #d8e5ea;
+  --primary: #188f8f;
+  --primary-dark: #0f6e73;
+  --accent: #f9b44a;
+  --coral: #ef6f6c;
+  --blue: #527ee6;
+  --success: #3a9d70;
+  --warning: #f0a23a;
+  --danger: #dd5b63;
+  --shadow: 0 18px 45px rgba(24, 50, 58, 0.12);
+  --radius: 8px;
+  --sidebar-width: 280px;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--primary-dark);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

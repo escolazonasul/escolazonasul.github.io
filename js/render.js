@@ -3,6 +3,10 @@
   const { data, dom, state, utils } = app;
 
   function renderListState(container, title, message) {
+    if (!container) {
+      return;
+    }
+
     container.innerHTML = `
       <div class="empty-state">
         <strong>${utils.escapeHtml(title)}</strong>
@@ -12,6 +16,10 @@
   }
 
   function renderTableState(title, message) {
+    if (!dom.registrationsTable) {
+      return;
+    }
+
     dom.registrationsTable.innerHTML = `
       <tr>
         <td colspan="4">
@@ -24,7 +32,32 @@
     `;
   }
 
+  function renderAdminAccessMessage(title, message) {
+    if (!dom.adminAccessMessage) {
+      return;
+    }
+
+    dom.adminAccessMessage.hidden = false;
+    dom.adminAccessMessage.innerHTML = `
+      <strong>${utils.escapeHtml(title)}</strong>
+      <span>${utils.escapeHtml(message)}</span>
+    `;
+  }
+
+  function clearAdminAccessMessage() {
+    if (!dom.adminAccessMessage) {
+      return;
+    }
+
+    dom.adminAccessMessage.hidden = true;
+    dom.adminAccessMessage.innerHTML = "";
+  }
+
   function renderSchools() {
+    if (!dom.schoolGrid) {
+      return;
+    }
+
     dom.schoolGrid.innerHTML = data.schools.map((school) => `
       <article class="school-card">
         <div class="school-card__image">
@@ -57,6 +90,10 @@
   }
 
   function renderNotices(items = state.notices) {
+    if (!dom.noticeList) {
+      return;
+    }
+
     if (!items.length) {
       renderListState(dom.noticeList, "Nenhum aviso encontrado", "A API não retornou avisos para esta sessão.");
       return;
@@ -97,6 +134,10 @@
   }
 
   function renderEvents(items = state.events) {
+    if (!dom.eventList) {
+      return;
+    }
+
     if (!items.length) {
       renderListState(dom.eventList, "Nenhum evento encontrado", "A API não retornou eventos para esta sessão.");
       return;
@@ -129,6 +170,10 @@
   }
 
   function renderGallery(items = state.gallery) {
+    if (!dom.galleryGrid) {
+      return;
+    }
+
     if (!items.length) {
       renderListState(dom.galleryGrid, "Nenhum item de galeria encontrado", "A API não retornou imagens para esta sessão.");
       return;
@@ -154,6 +199,10 @@
   }
 
   function renderProfiles() {
+    if (!dom.profileList) {
+      return;
+    }
+
     dom.profileList.innerHTML = data.profiles.map((profile) => `
       <article class="profile-card">
         <h3>${utils.escapeHtml(profile.title)}</h3>
@@ -188,9 +237,17 @@
   function updateCounters() {
     const activeNotices = state.notices.filter((notice) => notice.ativo !== false);
 
-    dom.schoolCount.textContent = data.schools.length;
-    dom.noticeCount.textContent = activeNotices.length;
-    dom.eventCount.textContent = state.events.length;
+    if (dom.schoolCount) {
+      dom.schoolCount.textContent = data.schools.length;
+    }
+
+    if (dom.noticeCount) {
+      dom.noticeCount.textContent = activeNotices.length;
+    }
+
+    if (dom.eventCount) {
+      dom.eventCount.textContent = state.events.length;
+    }
   }
 
   function renderProtectedUnavailable(message) {
@@ -213,6 +270,8 @@
   }
 
   app.render = {
+    clearAdminAccessMessage,
+    renderAdminAccessMessage,
     renderEvents,
     renderGallery,
     renderListState,
