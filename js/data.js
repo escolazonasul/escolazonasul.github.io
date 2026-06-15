@@ -6,7 +6,7 @@
       {
         name: "CEMEI Morumbi",
         type: "Creche / Educação Infantil",
-        email: "cemeimorumbi@escola.local",
+        email: "cemeimorumbi@gmail.com",
         phone: "(00) 90000-1001",
         address: "Comunidade Zona Sul",
         image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=900&q=80",
@@ -15,7 +15,7 @@
       {
         name: "EMEF Veremundo Toth, Dom",
         type: "Ensino Fundamental",
-        email: "veremundototh@escola.local",
+        email: "veremundototh@gmail.com",
         phone: "(00) 90000-1002",
         address: "Comunidade Zona Sul",
         image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=900&q=80",

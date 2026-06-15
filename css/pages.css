@@ -323,6 +323,27 @@
   font-size: 1rem;
 }
 
+body[data-page="enventos"] .admin-forms {
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+body[data-page="enventos"] .admin-form-card {
+  width: min(820px, 100%);
+  justify-self: center;
+}
+
+body[data-page="enventos"] .quick-form {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: end;
+}
+
+body[data-page="enventos"] .quick-form label:has(textarea),
+body[data-page="enventos"] .quick-form .checkbox-field,
+body[data-page="enventos"] .quick-form .button {
+  grid-column: 1 / -1;
+}
+
 body[data-page="painel"] .section {
   border: 0;
   background: transparent;
@@ -358,6 +379,10 @@ body[data-page="painel"] .table-wrap {
 
   .hero-panel {
     padding: 22px;
+  }
+
+  body[data-page="enventos"] .quick-form {
+    grid-template-columns: 1fr;
   }
 }
 
